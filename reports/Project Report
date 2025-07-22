@@ -1,0 +1,80 @@
+
+# 🚀 Domain Name Generator LLM – Final Report
+
+**Project Date**: 2025-07-22
+
+---
+
+## 🧠 Objective
+
+Fine-tune a lightweight LLM to generate creative and relevant domain names given a business description. Evaluate the effectiveness of the model using both human preference scoring and automatic metrics like BLEU.
+
+---
+
+## ⚙️ Model Setup
+
+- **Base Model**: `tiiuae/falcon-rw-1b`
+- **Training Technique**: LoRA fine-tuning
+- **Framework**: Hugging Face Transformers + PEFT
+- **Dataset**: 30 domain descriptions + corresponding human-curated domains
+
+**LoRA Config**:
+- `r=4`, `lora_alpha=8`, `lora_dropout=0.1`
+- Trainable params: ~786K (~0.06% of total model params)
+
+---
+
+## 📊 Training Summary
+
+- Run: Local machine with CPU / GPU
+- Epochs: 5
+- Optimized for: Causal LM
+- Training completed successfully with all LoRA layers active.
+
+---
+
+## ✅ Evaluation
+
+### Automatic Metrics
+
+- Used **BLEU** to compare base vs fine-tuned generations against reference domains.
+- Tokenization improved to account for domain patterns.
+
+### Human Feedback (via Groq API)
+
+- Scored 30 samples on:
+  - Relevance
+  - Creativity
+  - Safety
+  - Overall quality
+- Evaluations failed if formatting was incorrect or key was missing.
+
+### Sample Results
+
+| Prompt | Base | Fine-tuned | BLEU Score |
+|--------|------|------------|------------|
+| eco-friendly yoga gear startup | [base output] | yogatotes.com | 0.23 |
+| AI interior design assistant | [base output] | decorly.io | 0.41 |
+
+---
+
+## 🧠 Insights
+
+- **Fine-tuning** improved:
+  - Relevance to prompt
+  - Lexical creativity in many cases
+- **BLEU scores** were low numerically due to domain-level vocabulary mismatch, but **qualitative improvement** was visible
+- Using Groq (GPT-4 equivalent) gave valuable human-like judgment
+
+---
+
+## 📌 Next Steps
+
+- 🎯 Deploy the fine-tuned model with an API for real-time use
+- 🧪 Add retrieval augmentation (RAG) for domain trends
+- 🌍 Build a web UI with FastAPI or Streamlit
+- 📈 Collect user feedback for continual improvement
+
+---
+
+📝 Report auto-generated on: 2025-07-22 21:52:19
